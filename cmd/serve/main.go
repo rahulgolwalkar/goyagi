@@ -2,6 +2,7 @@
 package main
 
 import (
+	"github.com/rahulgolwalkar/goyagi/pkg/application"
 	"net/http"
 
 	"github.com/rahulgolwalkar/goyagi/pkg/server"
@@ -11,9 +12,15 @@ import (
 func main() {
 	log := logger.New()
 
-	srv := server.New()
+	app, err1 := application.New()
 
-	log.Info("serve started")
+	if err1 != nil {
+		log.Err(err1).Fatal("failed to initialize application")
+	}
+
+	srv := server.New(app)
+
+	log.Info("server started", logger.Data{"port": app.Config.Port})
 
 	err := srv.ListenAndServe()
 	if err != nil && err != http.ErrServerClosed {

@@ -2,6 +2,7 @@
 package server
 
 import (
+	"github.com/rahulgolwalkar/goyagi/pkg/application"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -11,7 +12,10 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	srv := New()
+	app, err := application.New()
+	require.Nil(t, err, "unexpected error when creating application");
+
+	srv := New(app)
 
 	t.Run("serves registered endpoint", func(tt *testing.T) {
 		w := httptest.NewRecorder()
