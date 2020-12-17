@@ -232,6 +232,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/go-pg/pg",
+    "github.com/go-pg/pg/orm",
     "github.com/labstack/echo",
     "github.com/lob/logger-go",
     "github.com/pkg/errors",
